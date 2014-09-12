@@ -1,0 +1,72 @@
+// Place all the styles related to the sites controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+// colors
+$letters: rgba(103, 128, 159, 1.0);
+
+
+
+.header {
+  height: 25px;
+  background: $letters;
+}
+h1.main-header {
+  font-family: 'Fredoka One';
+}
+.btn.start {
+  margin-left: 0.25em;
+  margin-bottom: 0.25em;
+}
+.letters {
+  overflow: hidden;
+}
+.letter {
+  width: 3em;
+  height: 3em;
+  padding: 0.8em;
+  margin: 0.25em;
+  background: lighten($letters, 30%);
+  border-radius: 4px;
+  float: left;
+  color: #fff;
+  text-align: center;
+  font-size: 1.5em;
+  cursor: pointer;
+  transition: all 0.5s ease;
+}
+
+// fade transitions
+.letter.ng-hide {
+  display: block !important;
+  opacity: 0;
+  height: 0;
+  width: 0;
+  margin: 0;
+  padding: 0;
+}
+
+.graphic {
+  background: #ccc;
+}
+.blanks {
+  text-align: center;
+}
+.blank-container {
+  margin: 0 auto;
+}
+.blank-space {
+  display: inline-block;
+  width: 2em;
+  height: 2em;
+  text-align: center;
+  margin: 1em 1em;
+  font-size: 1.5em;
+  border-bottom: 3px solid #000;
+}
+
+.custom-modal {
+  position: absolute;
+  top: 30px;
+  left:20%;
+}

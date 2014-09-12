@@ -1,0 +1,84 @@
+
+<div ng-controller="HangManCtrl" class="container-fluid">
+  <div class="row">
+    <div class="col-sm-12 header">
+    </div>
+  </div><!-- /.row -->
+  <div class="row">
+    <div class="col-sm-12">
+      <h1 class="main-header">Hangman</h1>
+    </div>
+  </div><!-- /.row -->
+  <div class="row">
+    <div class="col-sm-6 graphic">
+      <canvas width="100%" height="400px"></canvas>
+    </div>
+    <div class="col-sm-6">
+      <div class="row">
+        <div class="col-sm-12">
+          <button class="btn btn-primary btn-lg start" ng-click="showModal()">Start Game</button>
+          <button class="btn btn-default btn-lg hint" ng-click="getHint()">Get Hint</button>
+        </div>
+      </div><!-- /.row -->
+      <div class="row">
+        <div class="col-sm-12 letters">
+          <div class="letter" ng-repeat="letter in letters" ng-click="guessLetter(letter)" ng-hide="{{letter}}">{{letter}}</div>
+        </div>
+      </div><!-- /.row -->
+    </div>
+  </div><!-- ./row -->
+  <div class="row">
+    <div class="col-sm-12 blanks">
+      <div class="blank-container">
+        <div class="blank-space" ng-repeat="letter in secret.word track by $index">
+          <span ng-show="{{letter}}">{{letter}}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- modal-->
+  <div id="newWord" ng-show="openModal" class="custom-modal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Add a Secret Word</h4>
+      </div>
+      <div class="modal-body">
+        <form ng-submit="setSecret(secret)" action="javascript:void(0)">
+          <div class="form-group">
+            <label for="secretWord">Secret Word</label>
+            <input class="form-control" type="text" ng-model="secret.word" placeholder="Enter the secret word" autofocus>
+          </div>
+          <!-- consider saving hints to an array to use the index -->
+          <div class="form-group">
+            <label for="hintOne">Hint #1</label>
+            <input id="hintOne" class="form-control" type="text" ng-model="secret.hintOne" placeholder="Enter the first hint">
+          </div>
+          <div class="form-group">
+            <label for="hintTwo">Hint #2</label>
+            <input id="hintTwo" class="form-control" type="text" ng-model="secret.hintTwo" placeholder="Enter the second hint">
+          </div>
+          <div class="form-group">
+            <label for="hintThree">Hint #3</label>
+            <input id="hintThree" class="form-control" type="text" ng-model="secret.hintThree" placeholder="Enter the third hint">
+          </div>
+          <input type="submit" class="btn btn-primary" value="Start Game">
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" ng-click="hideModal()">Cancel</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<div class="modal-dialog" ng-show="showHint">
+  Hint goes here
+  <button class="btn btn-default">Close</button>
+</div>
+
+</div><!-- /HangManCtrl -->
+
+

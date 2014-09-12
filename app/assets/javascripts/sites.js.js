@@ -7,6 +7,13 @@ HangManApp.controller("HangManCtrl", [
   "$scope", function($scope) {
     $scope.openModal = false;
     $scope.letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
+    $scope.showHint = [];
+    $scope.hintBtn = [];
+    $scope.bodyCount = 6;
+    $scope.winCount = 0;
+    $scope.axe = [false, false, false, false, false, false];
+    $scope.turnScore = 1000;
+    $scope.gameScore = 0;
     $scope.showModal = function() {
       return $scope.openModal = true;
     };
@@ -20,9 +27,56 @@ HangManApp.controller("HangManCtrl", [
     };
     $scope.guessLetter = function(letter) {
       if ($scope.secret.word.indexOf(letter) !== -1) {
-        return $scope[letter] = true;
+        $scope[letter] = true;
+        $scope.winCount += 1;
+        if ($scope.winCount >= $scope.secret.word.length) {
+          return $scope.celebrate();
+        }
+      } else {
+        $scope.turnScore -= 25;
+        $scope.axeBodypart($scope.bodyCount);
+        $scope.bodyCount -= 1;
+        if ($scope.bodyCount <= 0) {
+          return $scope.fail();
+        }
       }
     };
-    return $scope.getHint = function() {};
+    $scope.getHint = function(index) {
+      $scope.showHint[index] = true;
+      $scope.turnScore -= 100;
+      $scope.hintBtn[index] = true;
+      return console.log($scope.turnScore);
+    };
+    $scope.hideHint = function(index) {
+      return $scope.showHint[index] = false;
+    };
+    $scope.axeBodypart = function(num) {
+      console.log("body part axed", num);
+      return $scope.axe[num] = true;
+    };
+    $scope.resetGame = function() {
+      $scope.showHint = [];
+      $scope.bodyCount = 6;
+      $scope.winCount = 0;
+      $scope.turnScore = 1000;
+      $scope.axe = [false, false, false, false, false, false];
+      $scope.secret = {};
+      return $scope.hintBtn = [];
+    };
+    $scope.celebrate = function() {
+      console.log("you win!");
+      $scope.gameScore += $scope.turnScore;
+      $scope.showResult("You win!");
+      return $scope.resetGame();
+    };
+    $scope.fail = function() {
+      console.log("you lose!");
+      $scope.showResult("You lose!");
+      return $scope.resetGame();
+    };
+    return $scope.showResultModal = function(message) {
+      $scope.result.message = message;
+      return $scope.showResult = true;
+    };
   }
 ]);

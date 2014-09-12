@@ -5,19 +5,46 @@
     </div>
   </div><!-- /.row -->
   <div class="row">
-    <div class="col-sm-12">
+    <div class="col-sm-6">
       <h1 class="main-header">Hangman</h1>
+    </div>
+    <div class="col-sm-6 scoring">
+      <div class="game-score" ng-model="gameScore">
+        <h4>Total Score: {{gameScore}}</h4>
+      </div>
     </div>
   </div><!-- /.row -->
   <div class="row">
     <div class="col-sm-6 graphic">
-      <canvas width="100%" height="400px"></canvas>
+      <svg height="600" width="400">
+        <polyline points="
+          0,500
+          400,500
+          25,500
+          25,500
+          20,25
+          250,25
+          250,50"
+
+          style="fill:none; stroke:black; stroke-width:15"
+        />
+        <!-- line tags -->
+
+        <!-- circel tag -->
+        <line ng-hide="axe[6]" id="lt-leg" x1="250" y1="300" x2="350" y2="450" stroke="black" stroke-width="5"/>
+        <line ng-hide="axe[5]" id="rt-leg" x1="250" y1="300" x2="150" y2="450" stroke="black" stroke-width="5"/>
+        <line ng-hide="axe[4]" id="lt-arm" x1="250" y1="175" x2="150" y2="200" stroke="black" stroke-width="5"/>
+        <line ng-hide="axe[3]" id="rt-arm" x1="250" y1="175" x2="350" y2="200" stroke="black" stroke-width="5"/>
+        <line ng-hide="axe[2]" id="body" x1="250" y1="150" x2="250" y2="300" stroke="black" stroke-width="5"/>
+        <circle ng-hide="axe[1]" cx="250" cy="100" r="50" style="fill:none; stroke:black; stroke-width:5" />
+
+      </svg>
     </div>
     <div class="col-sm-6">
       <div class="row">
         <div class="col-sm-12">
           <button class="btn btn-primary btn-lg start" ng-click="showModal()">Start Game</button>
-          <button class="btn btn-default btn-lg hint" ng-click="getHint()">Get Hint</button>
+          <a href="javascript:void(0)"class="hint" ng-repeat="hint in secret.hint" ng-hide="hintBtn[{{$index}}]" ng-click="getHint($index)">Get Hint {{$index + 1}}</a>
         </div>
       </div><!-- /.row -->
       <div class="row">
@@ -31,7 +58,7 @@
     <div class="col-sm-12 blanks">
       <div class="blank-container">
         <div class="blank-space" ng-repeat="letter in secret.word track by $index">
-          <span ng-show="{{letter}}">{{letter}}</span>
+          <span class="correct-letter" ng-show="{{letter}}">{{letter}}</span>
         </div>
       </div>
     </div>
@@ -54,15 +81,15 @@
           <!-- consider saving hints to an array to use the index -->
           <div class="form-group">
             <label for="hintOne">Hint #1</label>
-            <input id="hintOne" class="form-control" type="text" ng-model="secret.hintOne" placeholder="Enter the first hint">
+            <input id="hintOne" class="form-control" type="text" ng-model="secret.hint[0]" placeholder="Enter the first hint">
           </div>
           <div class="form-group">
             <label for="hintTwo">Hint #2</label>
-            <input id="hintTwo" class="form-control" type="text" ng-model="secret.hintTwo" placeholder="Enter the second hint">
+            <input id="hintTwo" class="form-control" type="text" ng-model="secret.hint[1]" placeholder="Enter the second hint">
           </div>
           <div class="form-group">
             <label for="hintThree">Hint #3</label>
-            <input id="hintThree" class="form-control" type="text" ng-model="secret.hintThree" placeholder="Enter the third hint">
+            <input id="hintThree" class="form-control" type="text" ng-model="secret.hint[2]" placeholder="Enter the third hint">
           </div>
           <input type="submit" class="btn btn-primary" value="Start Game">
         </form>
@@ -74,9 +101,26 @@
   </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
 
-<div class="modal-dialog" ng-show="showHint">
-  Hint goes here
-  <button class="btn btn-default">Close</button>
+<div class="modal-dialog hint-modal custom-modal" ng-show="showHint[{{$index}}]" ng-repeat="hint in secret.hint">
+  <div class="modal-content">
+    <div class="modal-header">
+      <p>{{hint}}</p>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-default" ng-click="hideHint($index)">Close</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-dialog hint-modal custom-modal" ng-show="showResult">
+  <div class="modal-content">
+    <div class="modal-header">
+      <p>{{result.message}}</p>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-default" ng-click="hideHint($index)">Close</button>
+    </div>
+  </div>
 </div>
 
 </div><!-- /HangManCtrl -->

@@ -55,6 +55,7 @@ HangManApp.controller("HangManCtrl", [
       return $scope.axe[num] = true;
     };
     $scope.resetGame = function() {
+      var letter, _i, _len, _ref, _results;
       $scope.showHint = [];
       $scope.bodyCount = 6;
       $scope.winCount = 0;
@@ -62,7 +63,14 @@ HangManApp.controller("HangManCtrl", [
       $scope.axe = [false, false, false, false, false, false];
       console.log("game reset");
       $scope.secret = {};
-      return $scope.hintBtn = [];
+      $scope.hintBtn = [];
+      _ref = $scope.letters;
+      _results = [];
+      for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+        letter = _ref[_i];
+        _results.push($scope[letter] = false);
+      }
+      return _results;
     };
     $scope.celebrate = function() {
       console.log("you win!");

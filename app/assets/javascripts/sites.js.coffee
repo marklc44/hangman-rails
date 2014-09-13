@@ -72,6 +72,8 @@ HangManApp.controller "HangManCtrl", ["$scope", ($scope) ->
     console.log("game reset")
     $scope.secret = {}
     $scope.hintBtn = []
+    for letter in $scope.letters
+      $scope[letter] = false
 
 
   $scope.celebrate = ->

@@ -10,18 +10,18 @@
     </div>
     <div class="col-sm-6 scoring">
       <div class="game-score" ng-model="gameScore">
-        <h4>Total Score: {{gameScore}}</h4>
+        <h4 class="score">Total Score: {{gameScore}}</h4>
       </div>
     </div>
   </div><!-- /.row -->
   <div class="row">
     <div class="col-sm-6 graphic">
-      <svg height="600" width="400">
+      <svg height="500" width="400">
         <polyline points="
-          0,500
-          400,500
-          25,500
-          25,500
+          0,475
+          400,475
+          25,475
+          25,475
           20,25
           250,25
           250,50"
@@ -31,12 +31,12 @@
         <!-- line tags -->
 
         <!-- circel tag -->
-        <line ng-hide="axe[6]" id="lt-leg" x1="250" y1="300" x2="350" y2="450" stroke="black" stroke-width="5"/>
-        <line ng-hide="axe[5]" id="rt-leg" x1="250" y1="300" x2="150" y2="450" stroke="black" stroke-width="5"/>
-        <line ng-hide="axe[4]" id="lt-arm" x1="250" y1="175" x2="150" y2="200" stroke="black" stroke-width="5"/>
-        <line ng-hide="axe[3]" id="rt-arm" x1="250" y1="175" x2="350" y2="200" stroke="black" stroke-width="5"/>
-        <line ng-hide="axe[2]" id="body" x1="250" y1="150" x2="250" y2="300" stroke="black" stroke-width="5"/>
-        <circle ng-hide="axe[1]" cx="250" cy="100" r="50" style="fill:none; stroke:black; stroke-width:5" />
+        <line ng-show="axe[1]" id="lt-leg" x1="250" y1="300" x2="350" y2="450" stroke="black" stroke-width="5"/>
+        <line ng-show="axe[2]" id="rt-leg" x1="250" y1="300" x2="150" y2="450" stroke="black" stroke-width="5"/>
+        <line ng-show="axe[3]" id="lt-arm" x1="250" y1="175" x2="150" y2="200" stroke="black" stroke-width="5"/>
+        <line ng-show="axe[4]" id="rt-arm" x1="250" y1="175" x2="350" y2="200" stroke="black" stroke-width="5"/>
+        <line ng-show="axe[5]" id="body" x1="250" y1="150" x2="250" y2="300" stroke="black" stroke-width="5"/>
+        <circle ng-show="axe[6]" cx="250" cy="100" r="50" style="fill:none; stroke:black; stroke-width:5" />
 
       </svg>
     </div>
@@ -115,10 +115,10 @@
 <div class="modal-dialog hint-modal custom-modal" ng-show="showResult">
   <div class="modal-content">
     <div class="modal-header">
-      <p>{{result.message}}</p>
+      <p ng-model="result">{{result}}</p>
     </div>
     <div class="modal-footer">
-      <button class="btn btn-default" ng-click="hideHint($index)">Close</button>
+      <button class="btn btn-default" ng-click="showResult = false">Close</button>
     </div>
   </div>
 </div>

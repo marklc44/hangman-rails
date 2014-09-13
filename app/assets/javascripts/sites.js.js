@@ -60,22 +60,23 @@ HangManApp.controller("HangManCtrl", [
       $scope.winCount = 0;
       $scope.turnScore = 1000;
       $scope.axe = [false, false, false, false, false, false];
+      console.log("game reset");
       $scope.secret = {};
       return $scope.hintBtn = [];
     };
     $scope.celebrate = function() {
       console.log("you win!");
       $scope.gameScore += $scope.turnScore;
-      $scope.showResult("You win!");
+      $scope.showResultModal("You win!");
       return $scope.resetGame();
     };
     $scope.fail = function() {
       console.log("you lose!");
-      $scope.showResult("You lose!");
+      $scope.showResultModal("You lose!");
       return $scope.resetGame();
     };
     return $scope.showResultModal = function(message) {
-      $scope.result.message = message;
+      $scope.result = message;
       return $scope.showResult = true;
     };
   }
